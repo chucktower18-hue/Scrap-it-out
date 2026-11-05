@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#171a1b">
+<title>Scrap It Out — Snap. Sort. Cash in.</title>
+<style>
+:root{--bg:#f4f4ef;--ink:#171a1b;--muted:#656a69;--yellow:#f8c52b;--line:#dfe1d9;--card:#fff;--green:#1f6b4a;--red:#a33a2b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;border:0;font-weight:800;border-radius:14px;padding:14px 16px}
+.app{max-width:760px;margin:0 auto;min-height:100dvh;padding:0 16px 40px}
+header{margin:0 -16px;padding:19px 18px 17px;background:var(--ink);color:white;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:11px}.logo{width:44px;height:44px;border-radius:12px;background:var(--yellow);display:grid;place-items:center;color:var(--ink);font-size:24px}.brand-name{font-size:20px;font-weight:950;letter-spacing:-.7px}.tag{font-size:10px;color:var(--yellow);font-weight:900;letter-spacing:1.5px;margin-top:2px}.pill{border:1px solid #4a4d4d;color:#ddd;border-radius:99px;padding:7px 10px;font-size:11px;font-weight:800}
+.hero{padding:25px 2px 17px}.eyebrow{font-size:11px;letter-spacing:1.6px;font-weight:950;color:#7d6400}.hero h1{font-size:clamp(30px,7vw,47px);line-height:1.02;letter-spacing:-1.7px;margin:8px 0 10px}.hero p{color:var(--muted);line-height:1.5;margin:0;max-width:540px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;margin:13px 0;box-shadow:0 5px 20px #17201a08}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.panel h2{font-size:17px;margin:0;letter-spacing:-.3px}.sub{color:var(--muted);font-size:12px;line-height:1.45}
+.camera{background:#15191a;border-radius:17px;overflow:hidden;position:relative;min-height:220px;aspect-ratio:4/3;display:grid;place-items:center;color:#fff}
+.camera video,.camera img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;display:none}.camera.active video,.camera.has-image img{display:block}.camera-placeholder{text-align:center;padding:25px;max-width:270px}.camera-placeholder .cam-icon{font-size:48px}.camera-placeholder strong{display:block;font-size:17px;margin:8px}.camera-placeholder span{font-size:12px;color:#c5cac8;line-height:1.4;display:block}.camera.active .camera-placeholder,.camera.has-image .camera-placeholder{display:none}
+.corner{position:absolute;width:27px;height:27px;border-color:var(--yellow);border-style:solid;z-index:2;pointer-events:none}.tl{top:14px;left:14px;border-width:3px 0 0 3px}.tr{top:14px;right:14px;border-width:3px 3px 0 0}.bl{bottom:14px;left:14px;border-width:0 0 3px 3px}.br{bottom:14px;right:14px;border-width:0 3px 3px 0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.primary{background:var(--yellow);color:var(--ink)}.secondary{background:#eceee8;color:var(--ink)}.dark{background:var(--ink);color:white}.full{width:100%}.actions button{font-size:13px}.status{font-size:12px;color:var(--muted);margin-top:10px;min-height:17px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
+.result-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.result-name{font-size:25px;font-weight:950;letter-spacing:-.9px;margin:5px 0}.confidence{background:#e7f3ea;color:#1d6942;font-weight:900;font-size:12px;border-radius:10px;padding:9px 10px;white-space:nowrap}.warning{background:#fff4d2;border:1px solid #f1d77a;border-radius:12px;padding:11px 12px;font-size:12px;line-height:1.45;margin-top:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;color:var(--muted);font-weight:800}.field input,.field select{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;background:white;color:var(--ink);min-width:0}.field small{font-size:10px;color:var(--muted)}
+.checks,.prep{padding-left:18px;margin:10px 0 0}.checks li,.prep li{padding:5px 0;font-size:13px;line-height:1.45}.checklist{display:grid;gap:8px;margin-top:10px}.checkrow{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.4}.checkrow input{margin-top:3px;accent-color:#1f6b4a}
+.valuebox{background:var(--ink);color:white;border-radius:17px;padding:17px;margin-top:13px}.valuebox .small{color:#c5cac8;font-size:12px}.value{font-size:35px;font-weight:950;letter-spacing:-1.1px;margin:5px 0}.valuebox .fine{color:#c5cac8;font-size:11px;line-height:1.45}.rate-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.rate-row:last-child{border:0}.rate-row strong{font-size:13px}.rate-row span{font-size:12px;color:var(--muted);text-align:right}
+.backend{background:#f1f1ec;border-radius:14px;padding:12px;margin-top:12px}.backend summary{font-weight:850;font-size:13px;cursor:pointer}.backend p{font-size:12px;color:var(--muted);line-height:1.5}.backend input{margin-top:8px}.tiny{font-size:10px;color:var(--muted);line-height:1.45}.foot{padding:12px 2px 25px;font-size:11px;color:var(--muted);line-height:1.5}
+.hidden{display:none!important}
+
+.process-card{border:1px solid var(--line);border-radius:15px;padding:13px;background:#fff}
+.process-card.recommended{border:2px solid var(--yellow);background:#fffdf5}
+.process-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.process-card h3{font-size:14px;margin:0 0 5px}
+.process-tag{font-size:10px;font-weight:900;background:#eceee8;padding:6px 8px;border-radius:99px;white-space:nowrap}
+.process-card p{font-size:12px;line-height:1.45;color:var(--muted);margin:7px 0}
+.process-card ul{padding-left:17px;margin:8px 0}
+.process-card li{font-size:12px;line-height:1.45;padding:3px 0}
+.process-card .stop{font-size:11px;color:#8c2e20;background:#fff0ec;border-radius:9px;padding:8px;margin-top:8px;line-height:1.4}
+
+@media(min-width:620px){.app{padding:0 24px 50px}header{margin:0 -24px;padding:20px 26px}.hero{padding-top:32px}.panel{padding:20px}.camera{aspect-ratio:16/9}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="brand"><div class="logo">♻</div><div><div class="brand-name">SCRAP IT OUT</div><div class="tag">SNAP. SORT. CASH IN.</div></div></div><div class="pill">ONTARIO · BETA</div></header>
+<section class="hero"><div class="eyebrow">YOUR POCKET SCRAP GUIDE</div><h1>Point it.<br>Snap it. Price it.</h1><p>Identify likely scrap metals, get safer preparation advice, and estimate what your haul could be worth.</p></section>
+
+<section class="panel">
+<div class="panel-head"><h2>01 / Scan your scrap</h2><span class="sub">Camera-first</span></div>
+<div class="camera" id="cameraBox">
+<video id="video" autoplay playsinline muted></video><img id="preview" alt="Captured scrap item preview">
+<div class="camera-placeholder"><div class="cam-icon">📷</div><strong>Ready when you are</strong><span>Frame one item clearly. Good light and a close-up of markings help.</span></div>
+<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+</div>
+<div class="actions"><button class="primary" id="startBtn">▣ Scan Scrap</button><button class="secondary" id="captureBtn" disabled>● Capture photo</button></div>
+<div class="actions"><button class="secondary" id="retakeBtn">↻ Retake</button><button class="dark" id="analyzeBtn" disabled>Analyze item →</button></div>
+<div id="cameraStatus" class="status">Camera permission is requested only when you tap Scan Scrap.</div>
+<input id="fileInput" type="file" accept="image/*" capture="environment" class="hidden">
+<details class="backend"><summary>Connect AI analysis backend</summary><p>Camera capture works in this page. Real AI identification requires a secure server endpoint that accepts JSON <code>{imageDataUrl}</code> and returns an analysis object. Put the endpoint URL below. Keep provider API keys on your server, never in this page.</p><div class="field"><label for="endpoint">Analysis endpoint URL (HTTPS)</label><input id="endpoint" type="url" value="/.netlify/functions/analyze" placeholder="/.netlify/functions/analyze"></div><p>Expected response fields: <code>metal</code>, <code>grade</code>, <code>confidence</code> (0–1), <code>checks</code> (array), <code>prep</code> (array), <code>hazards</code> (array).</p></details>
+</section>
+
+<section class="panel" id="resultPanel">
+<div class="panel-head"><h2>02 / Identification</h2><span class="sub" id="analysisState">Awaiting scan</span></div>
+<div id="emptyResult" class="sub">Your results will appear here after a photo is captured and analyzed. Without a connected AI endpoint, the app will not pretend a real identification was performed.</div>
+<div id="analysisResult" class="hidden">
+<div class="result-top"><div><div class="sub">LIKELY MATERIAL</div><div class="result-name" id="metalName">—</div><div class="sub" id="gradeName">Grade: unknown</div></div><div class="confidence" id="confidence">— confidence</div></div>
+<div id="hazardBox" class="warning hidden"></div>
+<h3 style="font-size:14px;margin:17px 0 5px">Verification checks</h3><ul class="checks" id="checksList"></ul>
+<h3 style="font-size:14px;margin:17px 0 5px">Preparation guidance</h3><ul class="prep" id="prepList"></ul>
+<div class="tiny" style="margin-top:10px">Photo-based identification is an estimate. Appearance alone cannot reliably confirm alloy or grade; verify with a magnet, markings, density/conductivity checks, or a yard's testing procedure as appropriate.</div>
+</div>
+</section>
+
+
+<section class="panel" id="processingPanel">
+<div class="panel-head"><h2>03 / Processing options</h2><span class="sub">Choose your approach</span></div>
+<div class="sub" id="processingIntro">After identification, choose a preparation route. The right option depends on the metal, the item, the yard's rules, your tools, and safety.</div>
+<div class="grid2" style="margin-top:13px">
+<div class="field"><label for="processGoal">Your priority</label><select id="processGoal"><option value="value">Best potential value</option><option value="easy">Fastest / least effort</option><option value="safe">Safest simple option</option></select></div>
+<div class="field"><label for="processSkill">Tools & experience</label><select id="processSkill"><option value="basic">Basic hand tools</option><option value="shop">Workshop tools / experience</option><option value="none">No dismantling tools</option></select></div>
+</div>
+<div id="processCards" style="display:grid;gap:10px;margin-top:13px">
+<div class="warning">Identify the item first to see tailored preparation options. Until then, do not cut, burn, grind, or open unknown items.</div>
+</div>
+<div class="tiny" style="margin-top:12px">Processing advice is a general guide, not a guarantee that a yard will pay more. Call the receiving yard first: some prefer items intact, and removing attachments can reduce value or create hazards.</div>
+</section>
+
+<section class="panel">
+<div class="panel-head"><h2>04 / Weight & local price</h2><span class="sub">Editable estimate</span></div>
+<div class="grid2">
+<div class="field"><label for="metalSelect">Metal / grade</label><select id="metalSelect"><option value="aluminum">Aluminum — mixed (sample)</option><option value="extrusion">Aluminum extrusion</option><option value="copper">Copper — mixed (sample)</option><option value="bright">Bare bright copper</option><option value="brass">Yellow brass</option><option value="stainless">Stainless steel</option><option value="steel">Ferrous steel</option><option value="wire">Insulated copper wire</option><option value="custom">Other / custom rate</option></select></div>
+<div class="field"><label for="unit">Weight unit</label><select id="unit"><option value="lb">Pounds (lb)</option><option value="kg">Kilograms (kg)</option></select></div>
+<div class="field"><label for="weight">Estimated weight</label><input id="weight" type="number" min="0" step="0.1" placeholder="e.g. 45"></div>
+<div class="field"><label for="rate">Price per lb (CAD)</label><input id="rate" type="number" min="0" step="0.01" value="0.00"></div>
+<div class="field"><label for="expenses">Haul expenses (CAD)</label><input id="expenses" type="number" min="0" step="0.01" value="0"></div>
+<div class="field"><label for="yard">Scrap yard / source</label><input id="yard" type="text" placeholder="Enter yard / source"></div>
+</div>
+<div class="warning" style="margin-top:13px">Price status: no live yard feed is connected. Enter a rate confirmed directly with your local yard. Sample rates are intentionally not pre-filled as current quotes.</div>
+<div class="valuebox"><div class="small">ESTIMATED GROSS VALUE</div><div class="value" id="gross">$0.00 CAD</div><div class="small">Estimated net after entered haul expenses</div><div style="font-size:22px;font-weight:900;margin:4px 0 9px" id="net">$0.00 CAD</div><div class="fine" id="calcNote">Add weight and a verified price to calculate. Final payout depends on yard grading, deductions and minimums.</div></div>
+</section>
+
+<section class="panel">
+<div class="panel-head"><h2>05 / Safety before you strip it</h2><span class="sub">Always verify</span></div>
+<div class="checklist">
+<label class="checkrow"><input type="checkbox"> <span>Item is disconnected from power and confirmed safe to handle.</span></label>
+<label class="checkrow"><input type="checkbox"> <span>No sealed, pressurized, gas, refrigerant, battery, or unknown chemical components.</span></label>
+<label class="checkrow"><input type="checkbox"> <span>I have checked for sharp edges, heavy parts, dust, and required PPE.</span></label>
+<label class="checkrow"><input type="checkbox"> <span>I checked the receiving yard's rules before dismantling or mixing grades.</span></label>
+</div>
+<div class="tiny" style="margin-top:12px">Never cut open sealed cylinders, capacitors, batteries, refrigerant equipment, or unknown containers. Stop if the item could be hazardous.</div>
+</section>
+<div class="foot">Scrap It Out is an estimating aid, not a certified alloy analyzer or a guaranteed quote. Camera access generally requires HTTPS or localhost. Photos are held in this page's memory and sent only to the endpoint you configure when you press Analyze.</div>
+</div>
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+let stream = null, imageDataUrl = null;
+const video=$('video'), box=$('cameraBox'), preview=$('preview');
+function status(msg, type=''){ $('cameraStatus').textContent=msg; $('cameraStatus').className='status '+type; }
+async function stopCamera(){ if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;} video.srcObject=null; box.classList.remove('active'); }
+$('startBtn').addEventListener('click', async()=>{
+  imageDataUrl=null; $('analyzeBtn').disabled=true; $('captureBtn').disabled=true; preview.src=''; box.classList.remove('has-image');
+  if(!navigator.mediaDevices?.getUserMedia){ status('Live camera is unavailable here. Use the photo picker instead, or open this page over HTTPS in a supported browser.','error'); $('fileInput').click(); return; }
+  try{ await stopCamera(); stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false}); video.srcObject=stream; await video.play(); box.classList.add('active'); $('captureBtn').disabled=false; status('Camera ready. Frame the item and tap Capture photo.','ok'); }
+  catch(e){ status('Could not open camera: '+(e.message||e)+' You can choose a photo instead.','error'); $('fileInput').click(); }
+});
+$('captureBtn').addEventListener('click',async()=>{
+  if(!stream || !video.videoWidth){status('Camera is not ready yet.','error');return;}
+  const canvas=document.createElement('canvas'); const scale=Math.min(1,1600/video.videoWidth); canvas.width=Math.round(video.videoWidth*scale); canvas.height=Math.round(video.videoHeight*scale);
+  canvas.getContext('2d').drawImage(video,0,0,canvas.width,canvas.height); imageDataUrl=canvas.toDataURL('image/jpeg',.86); preview.src=imageDataUrl; await stopCamera(); box.classList.add('has-image'); $('analyzeBtn').disabled=false; status('Photo captured in the app. Tap Analyze item to continue.','ok'); $('analysisState').textContent='Photo captured';
+});
+$('fileInput').addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{imageDataUrl=r.result;preview.src=imageDataUrl;box.classList.remove('active');box.classList.add('has-image');$('analyzeBtn').disabled=false;status('Photo ready. Tap Analyze item.','ok');};r.readAsDataURL(f);});
+$('retakeBtn').addEventListener('click',()=>{imageDataUrl=null;preview.src='';box.classList.remove('has-image');$('analyzeBtn').disabled=true;$('analysisResult').classList.add('hidden');$('emptyResult').classList.remove('hidden');$('analysisState').textContent='Awaiting scan';status('Ready for another scan. Tap Scan Scrap.');});
+function list(id,items){const ul=$(id);ul.replaceChildren();(items||[]).forEach(t=>{const li=document.createElement('li');li.textContent=String(t);ul.appendChild(li);});}
+function showResult(data){
+ $('emptyResult').classList.add('hidden');$('analysisResult').classList.remove('hidden');
+ $('metalName').textContent=data.metal||'Uncertain material';$('gradeName').textContent='Grade: '+(data.grade||'not confirmed');
+ const c=Number(data.confidence);$('confidence').textContent=Number.isFinite(c)?Math.round((c<=1?c:c/100)*100)+'% confidence':'Confidence not supplied';
+ list('checksList',data.checks||['Confirm the metal and grade with a receiving yard.']);list('prepList',data.prep||['Do not dismantle until the material and hazards are confirmed.']);
+ const hazards=data.hazards||[];if(hazards.length){$('hazardBox').textContent='SAFETY FLAGS: '+hazards.join(' · ');$('hazardBox').classList.remove('hidden');}else{$('hazardBox').textContent='No specific hazard was returned by the model. This is not proof that the item is safe.';$('hazardBox').classList.remove('hidden');}
+ $('analysisState').textContent='AI response received';
+ const m=(data.metal||'').toLowerCase();if(m.includes('copper')&&!m.includes('wire'))$('metalSelect').value='copper';else if(m.includes('brass'))$('metalSelect').value='brass';else if(m.includes('stainless'))$('metalSelect').value='stainless';else if(m.includes('aluminum')||m.includes('aluminium'))$('metalSelect').value='aluminum';else if(m.includes('steel'))$('metalSelect').value='steel';
+ $('metalSelect').dispatchEvent(new Event('change'));
+ renderProcessing();
+}
+$('analyzeBtn').addEventListener('click',async()=>{
+ const endpoint=$('endpoint').value.trim() || '/.netlify/functions/analyze';
+ if(!imageDataUrl){status('Capture a photo first.','error');return;}
+ if(!endpoint){status('Photo is captured, but no AI backend is connected. Add your HTTPS endpoint in “Connect AI analysis backend” to get real identification.','error');$('analysisState').textContent='Backend required';$('emptyResult').textContent='No AI analysis has been run yet. Connect a secure vision-model backend to identify the item. This app deliberately does not guess the metal from the photo without AI.';return;}
+ let endpointUrl;try{endpointUrl=new URL(endpoint,window.location.origin);if(endpointUrl.origin!==window.location.origin || (endpointUrl.protocol!=='https:' && !['localhost','127.0.0.1'].includes(endpointUrl.hostname)))throw new Error('Use this site’s secure analysis endpoint.');}catch(e){status('The analysis endpoint is not valid for this site.','error');return;}
+ $('analyzeBtn').disabled=true;status('Sending captured photo to your configured AI endpoint…');$('analysisState').textContent='Analyzing';
+ try{const res=await fetch(endpointUrl.toString(),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({imageDataUrl})});if(!res.ok)throw new Error('Server returned HTTP '+res.status);const data=await res.json();if(!data||typeof data!=='object')throw new Error('Unexpected response format');showResult(data);status('Analysis received. Verify grade before selling.','ok');}
+ catch(e){status('AI request failed: '+e.message+'. Check the backend URL, CORS settings, network and server logs.','error');$('analysisState').textContent='Analysis failed';}
+ finally{$('analyzeBtn').disabled=false;}
+});
+const priceDefaults={aluminum:0,extrusion:0,copper:0,bright:0,brass:0,stainless:0,steel:0,wire:0,custom:0};
+
+const processGuides = {
+ aluminum:{
+  title:'Aluminum', intro:'Sort by product type and keep clean grades separate. Painted, cast, extruded, and mixed aluminum may be priced differently.',
+  options:[
+   {name:'Sort by aluminum type',tag:'Best first step',desc:'Usually the best balance of value and low risk.',steps:['Separate clean extrusion, cast parts, sheet, rims, and cans where identifiable.','Remove obvious non-aluminum attachments only when they come off safely and the yard accepts the separated material.','Keep steel screws, rubber, plastic, and other metals out of clean piles.'],stop:'Do not dismantle pressurized parts, vehicle components, or unknown assemblies without checking hazards and yard rules.'},
+   {name:'Keep bulky items intact',tag:'Fastest',desc:'Useful when the item is mixed, awkward, or hard to identify.',steps:['Ask the yard whether it accepts the whole item and how it will grade it.','Remove loose rubbish only; keep attached parts in place if removal is uncertain.','Weigh the item and confirm whether mixed-material deductions apply.'],stop:'Do not assume removing every attachment improves the payout.'}
+  ]},
+ copper:{
+  title:'Copper', intro:'Copper value depends heavily on cleanliness, coating, solder, attachments, and the yard’s grade definitions.',
+  options:[
+   {name:'Separate clean copper',tag:'Potentially higher grade',desc:'For accessible copper pieces that can be sorted without risky dismantling.',steps:['Separate clean, uncoated copper from painted, soldered, oxidized, or mixed-metal pieces.','Keep brass fittings and steel attachments in separate containers if safely removable.','Ask the yard which copper grade its acceptance rules match before stripping further.'],stop:'Do not cut live wiring or open electrical equipment. Confirm power is isolated and the item is safe.'},
+   {name:'Sell as mixed copper / assembly',tag:'Less work',desc:'A practical route for assemblies with many fittings or uncertain grade.',steps:['Keep the assembly intact if disassembly is difficult or could damage the copper.','Photograph labels and fittings to ask the yard for a grade estimate.','Compare the offered mixed-grade rate with the extra time and cost of sorting.'],stop:'Never burn insulation off wire. Burning creates toxic fumes and may make the material unacceptable.'}
+  ]},
+ wire:{
+  title:'Insulated copper wire', intro:'Wire is commonly graded by copper recovery and insulation type. Yard rules vary, so check the rate for the exact wire category.',
+  options:[
+   {name:'Keep wire insulated and sort by type',tag:'Safest simple route',desc:'Often the easiest option without specialized processing equipment.',steps:['Separate extension cords, data cable, heavy power cable, and mixed wire if the yard asks for it.','Remove plugs only if the yard’s rules recommend it and it can be done safely with the cable disconnected.','Keep wire clean, dry, and bundled; ask for the yard’s insulated-wire grade.'],stop:'Never burn insulation. Do not strip unknown or potentially energized cable.'},
+   {name:'Mechanically strip eligible wire',tag:'Only if worthwhile',desc:'Can make sense for suitable wire when the yard pays enough extra to cover labor and tool costs.',steps:['Confirm the yard’s bare-copper grade and whether the remaining insulation has a separate value.','Use a purpose-built wire stripper on disconnected, accessible wire; keep hands clear of blades.','Compare expected recovered copper value against time, waste, and tool cost.'],stop:'Do not use open flame, improvised high-speed cutting, or strip wire from live installations.'}
+  ]},
+ brass:{
+  title:'Brass', intro:'Keep brass separate from copper, bronze, steel, and zinc-heavy mixed items where you can identify them confidently.',
+  options:[
+   {name:'Sort clean brass',tag:'Potentially better grade',desc:'Best when fittings are clearly brass and attachments are easy to separate.',steps:['Separate brass fittings and solid brass parts from steel, plastic, rubber, and copper.','Remove loose non-metal parts only when safe and easy.','Ask the yard how it grades plated brass, faucets, valves, and pieces with steel.'],stop:'Some valves and fittings can contain trapped pressure or hazardous residue. Do not cut them open.'},
+   {name:'Sell fittings as mixed brass',tag:'Less effort',desc:'For assemblies where the base material or internal contents are uncertain.',steps:['Keep uncertain assemblies intact and ask the yard whether it accepts them.','Separate obvious steel and plastic only if this is safe and worthwhile.','Use a conservative mixed-grade estimate until the yard confirms the grade.'],stop:'Do not dismantle gas fittings, pressurized components, or unknown plumbing/industrial assemblies.'}
+  ]},
+ stainless:{
+  title:'Stainless steel', intro:'Stainless grades can look similar but have different values. A magnet is a clue, not a definitive grade test.',
+  options:[
+   {name:'Sort by known grade and cleanliness',tag:'Best first step',desc:'Keep known 304/316 or marked material separate only when identification is credible.',steps:['Look for stamped grade markings or known material records.','Separate stainless from carbon steel and non-metal attachments.','Keep heavily contaminated, plated, or mixed assemblies separate and ask the yard how they are graded.'],stop:'Magnet response alone cannot prove stainless grade. Avoid grinding unknown alloys or dust.'},
+   {name:'Keep mixed stainless intact',tag:'Fastest',desc:'Useful when the grade is uncertain or parts are difficult to separate.',steps:['Ask the yard whether it buys mixed stainless and what inspection it requires.','Remove loose rubbish only; avoid mixing with ordinary steel.','Record the weight and use the yard’s mixed-stainless rate if confirmed.'],stop:'Do not dismantle equipment that may contain oil, chemicals, refrigerant, or electrical components.'}
+  ]},
+ steel:{
+  title:'Ferrous steel / iron', intro:'Steel is generally sorted by size, thickness, cleanliness, and whether it is cast iron or a special category.',
+  options:[
+   {name:'Separate heavy steel, sheet, and cast iron',tag:'Better sorting',desc:'A useful route when the yard pays different rates for different ferrous categories.',steps:['Separate cast iron, heavy steel, sheet metal, and stainless where confidently identified.','Remove wood, concrete, plastic, and loose rubbish if safe and practical.','Check size, length, and contamination rules before transporting oversized pieces.'],stop:'Do not cut sealed tanks, cylinders, drums, or unknown containers. Residues can ignite or release toxic material.'},
+   {name:'Sell as mixed ferrous scrap',tag:'Fastest',desc:'Practical for a small haul or a mixed pile when sorting would cost more than it adds.',steps:['Remove obvious non-scrap rubbish and keep hazardous items out of the pile.','Ask the yard if it accepts the item size and mixed ferrous grade.','Use a conservative rate and include loading/transport costs in the estimate.'],stop:'Heavy items can shift or crush. Secure loads and use appropriate lifting equipment.'}
+  ]},
+ custom:{
+  title:'Unconfirmed / mixed material', intro:'The material is not yet classified well enough to recommend dismantling. Confirm what it is and whether it contains hazards first.',
+  options:[
+   {name:'Keep it intact and ask the yard',tag:'Recommended',desc:'The safest route while the item or alloy is uncertain.',steps:['Photograph the full item, labels, connectors, and exposed material.','Ask the receiving yard whether it accepts the item intact and how it will be graded.','Only separate obvious loose attachments after confirming they are safe and worth sorting.'],stop:'Do not cut, burn, grind, or open unknown, sealed, pressurized, electrical, or chemical-containing items.'}
+  ]}
+};
+function renderProcessing(){
+ const key=$('metalSelect').value;
+ let group=processGuides[key]||processGuides.custom;
+ const analysisMetal=$('metalName').textContent.toLowerCase();
+ if(key==='aluminum' && analysisMetal.includes('extrusion')) group=processGuides.aluminum;
+ $('processingIntro').textContent=group.intro;
+ const goal=$('processGoal').value, skill=$('processSkill').value;
+ let opts=[...group.options];
+ if(goal==='easy') opts.sort((a,b)=>(a.name.toLowerCase().includes('intact')||a.name.toLowerCase().includes('mixed')? -1:1)-(b.name.toLowerCase().includes('intact')||b.name.toLowerCase().includes('mixed')? -1:1));
+ if(goal==='safe') opts.sort((a,b)=>(a.stop?0:1)-(b.stop?0:1));
+ if(skill==='none') opts=opts.filter(o=>/intact|mixed|keep|sort|ask the yard/i.test(o.name)).concat(opts.filter(o=>!/intact|mixed|keep|sort|ask the yard/i.test(o.name)));
+ const cards=$('processCards');cards.replaceChildren();
+ opts.forEach((o,i)=>{
+  const card=document.createElement('div');card.className='process-card'+(i===0?' recommended':'');
+  const head=document.createElement('div');head.className='process-card-head';
+  const title=document.createElement('div');const h=document.createElement('h3');h.textContent=o.name;const p=document.createElement('p');p.textContent=o.desc;title.append(h,p);
+  const tag=document.createElement('span');tag.className='process-tag';tag.textContent=(i===0?'SUGGESTED · ':'')+o.tag;head.append(title,tag);card.append(head);
+  const ul=document.createElement('ul');o.steps.forEach(s=>{const li=document.createElement('li');li.textContent=s;ul.append(li);});card.append(ul);
+  const stop=document.createElement('div');stop.className='stop';stop.textContent='Safety check: '+o.stop;card.append(stop);cards.append(card);
+ });
+}
+$('processGoal').addEventListener('change',renderProcessing);
+$('processSkill').addEventListener('change',renderProcessing);
+
+$('metalSelect').addEventListener('change',()=>{ $('rate').value=priceDefaults[$('metalSelect').value]??0; calc(); });
+renderProcessing();
+['weight','unit','rate','expenses'].forEach(id=>$(id).addEventListener('input',calc));
+function calc(){const w=Math.max(0,Number($('weight').value)||0),lb=$('unit').value==='kg'?w*2.2046226218:w,rate=Math.max(0,Number($('rate').value)||0),gross=lb*rate,expenses=Math.max(0,Number($('expenses').value)||0);$('gross').textContent=gross.toLocaleString('en-CA',{style:'currency',currency:'CAD'});$('net').textContent=(gross-expenses).toLocaleString('en-CA',{style:'currency',currency:'CAD'});$('calcNote').textContent=w?`${lb.toFixed(2)} lb equivalent × ${rate.toFixed(2)} CAD/lb. ${$('yard').value?'Source entered: '+$('yard').value+'. ':''}Price is user-entered and not independently verified.`:'Add weight and a verified price to calculate. Final payout depends on yard grading, deductions and minimums.';}
+})();
+</script>
+</body>
+</html>
